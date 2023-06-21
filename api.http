@@ -1,0 +1,14 @@
+## Development
+@base_url = http://localhost:3333
+
+@contentType = application/json
+
+###
+POST {{base_url}}/users  HTTP/1.1
+content-type: {{contentType}}
+
+{
+    "name": "John Doo",
+    "email": "john.doo@example.com",
+    "password": "123456"
+}
