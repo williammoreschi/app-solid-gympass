@@ -2,25 +2,27 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { Decimal } from '@prisma/client/runtime/library'
 import { InMemoryCheckInsRepository } from '@/repositories/in-memory/in-memory-check-ins-repository'
 import { CheckInUseCase } from './check-in'
-import { InMemoryGmysRepository } from '@/repositories/in-memory/in-memory-gyms-repository'
+import { InMemoryGymsRepository } from '@/repositories/in-memory/in-memory-gyms-repository'
+import { MaxNumberOfCheckInsError } from './errors/max-number-of-check-ins-error'
+import { MaxDistanceError } from './errors/max-distance-error'
 
 let checkInRepository: InMemoryCheckInsRepository
-let gymsInRepository: InMemoryGmysRepository
+let gymsInRepository: InMemoryGymsRepository
 let sut: CheckInUseCase
 
 describe('Get User Profile Use Case', () => {
   beforeEach(() => {
     checkInRepository = new InMemoryCheckInsRepository()
-    gymsInRepository = new InMemoryGmysRepository()
+    gymsInRepository = new InMemoryGymsRepository()
     sut = new CheckInUseCase(checkInRepository, gymsInRepository)
 
-    gymsInRepository.itens.push({
+    gymsInRepository.create({
       id: 'gym-01',
       title: 'Gym Smart',
       description: '',
       phone: '',
-      latitude: new Decimal(-23.4231851),
-      longitude: new Decimal(-51.9262769),
+      latitude: -23.4231851,
+      longitude: -51.9262769,
       created_at: new Date(),
     })
 
@@ -59,7 +61,7 @@ describe('Get User Profile Use Case', () => {
         userLatitude: -23.4231851,
         userLognitude: -51.9262769,
       }),
-    ).rejects.toBeInstanceOf(Error)
+    ).rejects.toBeInstanceOf(MaxNumberOfCheckInsError)
   })
 
   it('should be able to check in in different day', async () => {
@@ -101,6 +103,6 @@ describe('Get User Profile Use Case', () => {
         userLatitude: -23.4231851,
         userLognitude: -51.9262769,
       }),
-    ).rejects.toBeInstanceOf(Error)
+    ).rejects.toBeInstanceOf(MaxDistanceError)
   })
 })
