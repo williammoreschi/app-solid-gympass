@@ -6,6 +6,16 @@ import { randomUUID } from 'node:crypto'
 export class InMemoryCheckInsRepository implements CheckInsRepository {
   public itens: CheckIn[] = []
 
+  async findById(id: string) {
+    const checkIn = this.itens.find((item) => item.id === id)
+
+    if (!checkIn) {
+      return null
+    }
+
+    return checkIn
+  }
+
   async findByUserIdOnDate(userId: string, date: Date) {
     /**
      * date = 2023-01-01T16:52:58
@@ -50,5 +60,15 @@ export class InMemoryCheckInsRepository implements CheckInsRepository {
     this.itens.push(checkin)
 
     return checkin
+  }
+
+  async save(checkIn: CheckIn) {
+    const checkInIndex = this.itens.findIndex((item) => item.id === checkIn.id)
+
+    if (checkInIndex >= 0) {
+      this.itens[checkInIndex] = checkIn
+    }
+
+    return checkIn
   }
 }
