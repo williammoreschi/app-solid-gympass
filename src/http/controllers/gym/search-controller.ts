@@ -13,5 +13,5 @@ export const search = async (request: FastifyRequest, reply: FastifyReply) => {
   const registerUseCase = makeSearchGymsUseCase()
   const { gyms } = await registerUseCase.execute({ query, page })
 
-  return reply.status(201).send({ gyms })
+  return reply.status(200).send({ gyms })
 }

@@ -20,5 +20,5 @@ export const nearby = async (request: FastifyRequest, reply: FastifyReply) => {
     userLongitude: longitude,
   })
 
-  return reply.status(201).send({ gyms })
+  return reply.status(200).send({ gyms })
 }
