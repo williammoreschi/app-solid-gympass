@@ -19,8 +19,7 @@ export const register = async (
   })
 
   const { latitude, longitude } = registerBodySchema.parse(request.body)
-  const { gymId } = registerCheckInParamsSchema.parse(request.body)
-
+  const { gymId } = registerCheckInParamsSchema.parse(request.params)
   const registerUseCase = makeCheckInUseCase()
   await registerUseCase.execute({
     gymId,
