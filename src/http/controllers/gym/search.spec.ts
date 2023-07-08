@@ -3,7 +3,7 @@ import { createAndAuthenticateUser } from '@/utils/tests/create-and-authenticate
 import request from 'supertest'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 
-describe('Nearyby Gyms (e2e)', () => {
+describe('Search Gyms (e2e)', () => {
   beforeAll(async () => {
     await app.ready()
   })
@@ -12,7 +12,7 @@ describe('Nearyby Gyms (e2e)', () => {
     await app.close()
   })
 
-  it('should be able list nearby gyms', async () => {
+  it('should be able to search gyms by title', async () => {
     const { token } = await createAndAuthenticateUser(app)
 
     await request(app.server)
