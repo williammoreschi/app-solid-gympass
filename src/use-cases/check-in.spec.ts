@@ -10,7 +10,7 @@ let checkInRepository: InMemoryCheckInsRepository
 let gymsInRepository: InMemoryGymsRepository
 let sut: CheckInUseCase
 
-describe('Get User Profile Use Case', () => {
+describe('Check-in Use Case', () => {
   beforeEach(() => {
     checkInRepository = new InMemoryCheckInsRepository()
     gymsInRepository = new InMemoryGymsRepository()
