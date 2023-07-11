@@ -2,13 +2,51 @@
 @base_url = http://localhost:3333
 
 @contentType = application/json
+@bearer_token = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJidWZmZXIiOiJ0ZXN0Iiwic3ViIjoiZGVjZTk2ZmEtYWY2Yy00NDZjLWI1ODgtMmM4MWNkNWZkMWZhIiwiaWF0IjoxNjg4NDkyMDcwfQ.3SH63U7l5MWekAAyhUVV1753CWlkg9sIjMNoe37fIt0
 
-###
+### Criação de usuario
 POST {{base_url}}/users  HTTP/1.1
 content-type: {{contentType}}
 
 {
     "name": "John Doo",
-    "email": "john.doo@example.com",
+    "email": "john.adm@example.com",
     "password": "123456"
 }
+
+### Autenticação de usuário
+POST {{base_url}}/sessions  HTTP/1.1
+content-type: {{contentType}}
+
+{
+    "email": "john5.doo@example.com",
+    "password": "123456"
+}
+
+### Perfil do usuário
+GET {{base_url}}/me
+content-type: {{contentType}}
+Authorization: {{bearer_token}}
+
+### Criação de uma academia
+POST {{base_url}}/gyms
+content-type: {{contentType}}
+Authorization: {{bearer_token}}
+
+{
+    "title": "Smart Fit",
+    "description": null,
+    "phone": null,
+    "latitude": -23.4178223,
+    "longitude": -52.0010858
+}
+
+### Buscar academias por titulo
+GET {{base_url}}/gyms/search?query=Smart&page=1
+content-type: {{contentType}}
+Authorization: {{bearer_token}}
+
+### Buscar academias proximidade
+GET {{base_url}}/gyms/nearby?latitude=-23.4178223&longitude=-52.0010858
+content-type: {{contentType}}
+Authorization: {{bearer_token}}
